@@ -1,6 +1,6 @@
 // Global context for entire application
 import React from 'react';
-import firebase, { auth, authProvider } from './firebase';
+import firebase, { auth } from './firebase';
 
 const Context = React.createContext();
 
