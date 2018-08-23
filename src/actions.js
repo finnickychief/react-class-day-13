@@ -2,12 +2,9 @@ import firebase from './firebase';
 
 export const addProduct = (product, dispatch) => {
   // Add to database here later
+  const productsRef = firebase.database().ref('products');
 
-  // If DB add was good:
-  dispatch({
-    type: 'ADD_PRODUCT',
-    payload: product
-  });
+  productsRef.push(product);
 };
 
 export const addToCart = (item, dispatch, cart) => {

@@ -1,5 +1,6 @@
 // Global context for entire application
 import React from 'react';
+import firebase from './firebase';
 
 const Context = React.createContext();
 
@@ -20,11 +21,6 @@ const reducer = (state, action) => {
         )
       };
     }
-    case 'ADD_PRODUCT':
-      return {
-        ...state,
-        productList: [action.payload, ...state.productList]
-      };
     default:
       return state;
   }
@@ -39,17 +35,30 @@ export class Provider extends React.Component {
   };
 
   componentDidMount() {
+    const productsRef = firebase.database().ref('products');
+
+    productsRef.on('value', snapshot => {
+      let products = snapshot.val(); // Get list of all products
+
+      let productList = [];
+
+      for (let product in products) {
+        productList.push({
+          id: product,
+          name: products[product].name,
+          description: products[product].description,
+          price: products[product].price
+        });
+      }
+      this.setState({ productList: productList });
+    });
+
     let storedCart = [];
     localStorage.getItem('cart')
       ? (storedCart = JSON.parse(localStorage.getItem('cart')))
       : localStorage.setItem('cart', JSON.stringify([]));
 
     this.setState({
-      productList: [
-        { name: 'Basketball', description: 'Bouncy', price: 15.0 },
-        { name: 'Laptop', description: 'Computery', price: 750.0 },
-        { name: 'Table', description: 'Ikea approved', price: 45.0 }
-      ],
       cartItems: storedCart
     });
   }
