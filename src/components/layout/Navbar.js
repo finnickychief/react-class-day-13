@@ -41,11 +41,13 @@ class Navbar extends Component {
                   Cart
                 </Link>
               </li>
-              <li>
-                <Link className="nav-link" to="/addProduct">
-                  New Product
-                </Link>
-              </li>
+              {this.props.context.user ? (
+                <li>
+                  <Link className="nav-link" to="/addProduct">
+                    New Product
+                  </Link>
+                </li>
+              ) : null}
             </ul>
             <form className="form-inline mt-2 mt-md-0">
               <input

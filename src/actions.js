@@ -9,7 +9,13 @@ export const loginAction = dispatch => {
   });
 };
 
-export const logoutAction = dispatch => {};
+export const logoutAction = dispatch => {
+  auth.signOut().then(() => {
+    dispatch({
+      type: 'LOGOUT_USER'
+    });
+  });
+};
 
 export const addProduct = (product, dispatch) => {
   // Add to database here later

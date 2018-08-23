@@ -46,6 +46,12 @@ export class Provider extends React.Component {
   };
 
   componentDidMount() {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ user });
+      }
+    });
+
     const productsRef = firebase.database().ref('products');
 
     productsRef.on('value', snapshot => {
