@@ -1,3 +1,5 @@
+import firebase from './firebase';
+
 export const addProduct = (product, dispatch) => {
   // Add to database here later
 
