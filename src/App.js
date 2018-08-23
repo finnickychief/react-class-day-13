@@ -5,13 +5,14 @@ import Navbar from './components/layout/Navbar';
 import AddProductForm from './components/products/AddProductForm';
 import ProductList from './components/products/ProductList';
 import Cart from './components/cart/Cart';
+import { Consumer } from './context';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="App">
-          <Navbar />
+          <Consumer>{store => <Navbar context={store} />}</Consumer>
           <div className="container" style={{ marginTop: '80px' }}>
             <Switch>
               <Route exact path="/">

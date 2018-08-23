@@ -1,4 +1,15 @@
-import firebase from './firebase';
+import firebase, { auth, authProvider } from './firebase';
+
+export const loginAction = dispatch => {
+  auth.signInWithPopup(authProvider).then(result => {
+    dispatch({
+      type: 'LOGIN_USER',
+      payload: result.user
+    });
+  });
+};
+
+export const logoutAction = dispatch => {};
 
 export const addProduct = (product, dispatch) => {
   // Add to database here later

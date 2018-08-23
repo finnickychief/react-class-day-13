@@ -1,6 +1,6 @@
 // Global context for entire application
 import React from 'react';
-import firebase from './firebase';
+import firebase, { auth, authProvider } from './firebase';
 
 const Context = React.createContext();
 
@@ -21,6 +21,16 @@ const reducer = (state, action) => {
         )
       };
     }
+    case 'LOGIN_USER':
+      return {
+        ...state,
+        user: action.payload
+      };
+    case 'LOGOUT_USER':
+      return {
+        ...state,
+        user: null
+      };
     default:
       return state;
   }
@@ -31,6 +41,7 @@ export class Provider extends React.Component {
   state = {
     productList: [],
     cartItems: [],
+    user: null,
     dispatch: action => this.setState(state => reducer(state, action))
   };
 

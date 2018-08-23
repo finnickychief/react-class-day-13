@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { loginAction, logoutAction } from '../../actions';
 
 class Navbar extends Component {
+  logout = dispatch => {
+    logoutAction(dispatch);
+  };
+
+  login = dispatch => {
+    loginAction(dispatch);
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -52,6 +61,21 @@ class Navbar extends Component {
                 Search
               </button>
             </form>
+            {this.props.context.user ? (
+              <button
+                onClick={this.logout.bind(this, this.props.context.dispatch)}
+                className="btn btn-primary"
+              >
+                Log Out
+              </button>
+            ) : (
+              <button
+                onClick={this.login.bind(this, this.props.context.dispatch)}
+                className="btn btn-primary"
+              >
+                Log In
+              </button>
+            )}
           </div>
         </nav>
       </React.Fragment>
